@@ -42,9 +42,16 @@ Install the requirements for this repository, which simply includes the safe `bi
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
+# Check that you are NOT using bittensor==6.12.2
+```
+python -c 'import bittensor as bt; print (bt.__version__)'
+7.0.0 # OK
+6.12.2 # NOT OK!
+```
+
 ---
 ### Step 3
-Create a new wallet or use an already non-compromised walelt. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
+Create a new wallet or use an already non-compromised wallet. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
 > Note: if you use the CLI ensure you are not using bittensor==6.12.2, you can check that by running `python -c 'import bittensor as bt; print (bt.__version__)'`
 Creating a new wallet through the cli.
 ```bash
