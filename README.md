@@ -58,7 +58,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 
 > ===== Safe Transfer Transaction =====
 > --------------------------------------------------
-> ![#f8c200](https://via.placeholder.com/15/f8c200/000000?text=+) `###TRANSFER INFORMATION PRINTS HERE IN YELLOW###`
+> \color{yellow} `###TRANSFER INFORMATION PRINTS HERE IN YELLOW###`
 > --------------------------------------------------
 > ===== End of Safe Transfer Transaction Details =====
 ```
