@@ -20,15 +20,15 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 
 ---
 ### Table of Contents
-1. [Step 1: Clone the Repository and Install](#step-1-clone-the-repository)
-2. [Step 2: Attain a Secure Wallet Address](#step-2)
-3. [Step 3: Regenerate your compromised wallet](#step-3)
-4. [Step 4: Generate the Transaction String](#step-4)
-4. [Step 5: Submit the Transaction Sting](#step-5)
+1. [Step 1: Clone the Repository and Install](#step-1-clone-the-repository-and-install)
+2. [Step 2: Attain a Secure Wallet Address](#step-2-attain-a-secure-wallet-address)
+3. [Step 3: Regenerate your compromised wallet](#step-3-regenerate-your-compromised-wallet)
+4. [Step 4: Generate the Transaction String](#step-4-generate-the-transaction-string)
+4. [Step 5: Submit the Transaction String](#step-5-submit-the-transaction-string)
 5. [Step 6: Arbitration Process](#step-6-arbitration-process)
 
 ---
-### Step 1: Clone the Repository
+### Step 1: Clone the Repository and Install
 Git clone this repository on to your device from the command line. In the abundance of caution use a machine that was not previously compromised. 
 Next, install the requirements for this repository, which simply includes two requirements `bittensor>=7.0.0` and `rich` for terminal output colouring.
 ```bash
@@ -103,7 +103,7 @@ python safe_transfer.py --old_wallet=MY_NEW_WALLET_NAME --new_wallet_address=5DP
 
 ---
 
-### Step 5: Send the Transaction
+### Step 5: Submit the Transaction String
 Follow these instructions to send the transfer **to the right person** who will pass it through to the chain.
 
    4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
