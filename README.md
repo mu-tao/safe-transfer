@@ -29,9 +29,10 @@ cd safe-transfer; python -m pip install -r requirments.txt
 ```
 
 3. Third, run the `safe_transfer.py` script, passing your old_wallet name and the address to the wallet you want to transfer funds to ss58_encoded.
-> Note: this must be run on the machine with the old_wallet who's key is potentially compromised.
-> Note: The safe_transfer script does NOT execute this command it simply creates it and prints it to the screen.
-> Note: Make sure that YOU own the other wallet who's address you pass to the script. For instance, check for this value on the Bittensor wallet extension.
+> Note: 
+> 1. this must be run on the machine with the old_wallet who's key is potentially compromised.
+> 2. The safe_transfer script does NOT execute this command it simply creates it and prints it to the screen.
+> 3. Make sure that YOU own the other wallet who's address you pass to the script. For instance, check for this value on the Bittensor wallet extension.
 > Or run $ btcli w list to see the addresses of other wallet's available for the transfer.
 ```bash
 python safe_transfer.py --old_wallet=<the name of your old wallet> --new_wallet_address=<the ss58_address to the new wallet>
