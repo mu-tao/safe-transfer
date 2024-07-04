@@ -1,6 +1,8 @@
 
 # Safe Transfer
 
+![Safe Transfer UML](SafeTransferUML.jpg)
+
 ## Introduction
 
 On July 2nd 2024 the Bittensor network experienced hacks on a number of wallets. In reaction to the abrupt and large scale attack the Opentensor Foundation decided to firewall the chain ('make the chain un-accessible to further transactions') until the attack could be contained. In the following day we discovered that the root cause of the attack came from a compromised 6.12.2 version which was latest on PyPy from May 22nd until May 29th 2024 and which leaked wallet mnemonic details to the attacker when users called some wallet functions. It is possible that a large number of wallets that were actively using the Bittensor CLI at that time were compromised by the attack.
