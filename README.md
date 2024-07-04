@@ -122,7 +122,7 @@ Follow these instructions to send the transfer **to the right person** who will 
 
 ### Step 6: Arbitration Process
 
-There is a chance that two people submit a transfer signed with the same key within the X days that we provide this script. Notably, those two people would be ***you*** and a ***discord user from the attacking group** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try our best to filter out this attack vector.
+There is a chance that two people submit a transfer signed with the same key within the X days that we provide this script. Notably, those two people would be ***you*** and a ***discord user from the attacking group*** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try our best to filter out this attack vector.
 
 1. If one of the users has submitted more than 1 transaction which overlaps with another user, then both of their transactions will be discarded. This will force the attacking group to use many unique discord accounts. 
 
