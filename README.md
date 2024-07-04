@@ -58,7 +58,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 
 > ===== Safe Transfer Transaction =====
 > --------------------------------------------------
-> ###TRANSFER INFORMATION PRINTS HERE IN YELLOW###
+> [yellow]###TRANSFER INFORMATION PRINTS HERE IN YELLOW###[/yellow]
 > --------------------------------------------------
 > ===== End of Safe Transfer Transaction Details =====
 ```
