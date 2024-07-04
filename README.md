@@ -33,11 +33,40 @@ cd safe-transfer; python -m pip install -r requirments.txt
 > 1. this must be run on the machine with the old_wallet who's key is potentially compromised.
 > 2. The safe_transfer script does NOT execute this command it simply creates it and prints it to the screen.
 > 3. Make sure that YOU own the other wallet who's address you pass to the script. For instance, check for this value on the Bittensor wallet extension.
-> Or run $ btcli w list to see the addresses of other wallet's available for the transfer.
+> Or run `btcli w list` to see the addresses of other wallet's available for the transfer.
 ```bash
+# Fill in the < > items with the correct values.
 python safe_transfer.py --old_wallet=<the name of your old wallet> --new_wallet_address=<the ss58_address to the new wallet>
 
 # For example:
-        python safe_transfer.py --old_wallet=my_wallet_name --new_wallet_address=5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
+python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
+> Print Safe Transfer Transaction?
+>        > From wallet name: default with address: 5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
+>        > To wallet address: 5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P
+
+> Enter password to unlock key: 
+
+> ===== Safe Transfer Transaction =====
+> --------------------------------------------------
+> {'account_id': '0x3a5250e701ae60bd162ac3aa4cccc1c82b4d0e83e3f3441ad4035eafd2da226f', 'signature': {'Sr25519': 
+> '0x5aab7911945ec0bd9e2824f96499681e2faddf40bac97d4d99ba5b3744342c402b12f92714f18dec927587dae6a37777c1680aff91c898c06945d8a5193f5684'}, 'call_function': 
+> 'transfer_allow_death', 'call_module': 'Balances', 'call_args': {'dest': '5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P', 'value': 0}, 'nonce': 0, 'era': '00', 'tip':
+> 0, 'asset_id': {'tip': 0, 'asset_id': None}, 'signature_version': 1, 'address': '0x3a5250e701ae60bd162ac3aa4cccc1c82b4d0e83e3f3441ad4035eafd2da226f', 'call': 
+> {'call_function': 'transfer_allow_death', 'call_module': 'Balances', 'call_args': {'dest': '5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P', 'value': 0}}}
+> --------------------------------------------------
+> ===== End of Safe Transfer Transaction Details =====
 ```
 
+4. Fourth, follow these instructions to complete the wallet safe transfer:
+
+   a. Review all the items in the transfer details (displayed above) to ensure you are transferring to and from the correct keys. Make sure you have access to the wallet with the new address specified, that its mnemonic is stored safely, and you have the password available to decrypt the file. This is crucial, as you may not be able to access the funds after they have been transferred to the new address if you don't have this information.
+
+   b. Copy the text displayed in yellow above. Ensure you copy the entire contents that appear in yellow on your screen.
+
+   c. Join or enter the Bittensor Discord server by following this link: https://discord.gg/bittensor
+
+   d. Once you have joined the server, navigate to the ⛑・safe_transfer channel. Look for the member with a purple username "safe_transfer". Click on their username and send them a direct message. Paste the yellow details into this direct message. Do not leave the Bittensor Discord after doing this.
+
+   e. The verified user will then copy this transaction and pass it to the chain (which is currently firewalled). Note that they cannot edit any of the details of this transaction. The chain itself will verify its legitimacy as a normal transaction. The user is merely shuttling the transaction through to the chain.
+
+Please follow these instructions carefully to complete the safe transfer process.

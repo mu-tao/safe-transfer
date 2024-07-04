@@ -72,10 +72,9 @@ if not old_wallet.coldkey_file.is_readable():
 #     exit()
     
 # Print wallet information
-# console.print("-" * 50)
-# console.print("\n[bold white]===== Transaction =====[/bold white]")
-# console.print(f"  [bold white]\n\t> Old Wallet Name:[/bold white] [blue]{old_wallet_name}[/blue] \n\t\t> [white]address: {old_wallet.coldkeypub.ss58_address}[/white]")
-# console.print(f"  [bold white]\n\t> New Wallet Address: [red]{new_wallet_address}[/red][/bold white]")
+console.print("\n[bold white]Print Safe Transfer Transaction?[/bold white]")
+console.print(f"  [bold white]\t> From wallet name:[/bold white] [blue]{old_wallet_name}[/blue] with [white]address: [blue]{old_wallet.coldkeypub.ss58_address}[/blue][/white]")
+console.print(f"  [bold white]\t> To wallet address: [red]{new_wallet_address}\n[/red][/bold white]")
 # console.print(f"[bold white]\n> NOTE: this only CREATES the transaction and [yellow]prints[/yellow] it to the screen. It does NOT send the transaction to the chain.[/bold white]")
 # console.print(f"[bold white]\n> [yellow]WARNING[/yellow]: Make sure that the address: [red]{new_wallet_address}[/red] corresponds correctly to the wallet where you want to transfer the funds. If this is not the correct wallet abort with ctrl-c.")
 # if not Confirm.ask(f"[bold white]\nWould you like to sign the above transaction with your [blue]\"{old_wallet_name}\"[/blue] wallet and CONTINUE?[/bold white]\n"):
@@ -84,11 +83,9 @@ if not old_wallet.coldkey_file.is_readable():
 
 
 # Decrypt and continue.
-console.print(f"[bold white]\nUnlock your [blue]{old_wallet_name}[/blue] wallet to [yellow]print[/yellow] the safe transfer transaction to screen: [red]{new_wallet_address}[/red]\n[/bold white]")
 old_wallet.coldkey
 
 # Create the swap command.
-console.print("\n[bold white]Printing the safe transfer to screen...[/bold white]")
 try:
         call = sub.substrate.compose_call(
             call_module="Balances",
@@ -109,12 +106,12 @@ except Exception as e:
     exit()
 
 
-console.print("\n[bold white]===== Transfer Details =====[/bold white]")
-console.print("-" * 50)
-console.print(f"[bold cyan]\t> Old Wallet Name:[/bold cyan] [blue]{old_wallet_name}[/blue] \n\t\t> [blue]address: {old_wallet.coldkeypub.ss58_address}[/blue]")
-console.print(f"[bold cyan]\t> New Wallet Address: [red]{new_wallet_address}[/red][/bold cyan]")
-console.print("-" * 50)
-console.print("[bold white]===== End of Transfer Details =====[/bold white]\n")
+# console.print("\n[bold white]===== Transfer Details =====[/bold white]")
+# console.print("-" * 50)
+# console.print(f"[bold cyan]\t> Old Wallet Name:[/bold cyan] [blue]{old_wallet_name}[/blue] \n\t\t> [blue]address: {old_wallet.coldkeypub.ss58_address}[/blue]")
+# console.print(f"[bold cyan]\t> New Wallet Address: [red]{new_wallet_address}[/red][/bold cyan]")
+# console.print("-" * 50)
+# console.print("[bold white]===== End of Transfer Details =====[/bold white]\n")
 
 # Print the extrinsic nicely on the screen
 console.print("\n[bold white]===== Safe Transfer Transaction =====[/bold white]")
@@ -122,22 +119,3 @@ console.print("-" * 50)
 console.print(f"[yellow]{extrinsic.__str__().replace(chr(10), ' ')}[/yellow]")
 console.print("-" * 50)
 console.print("[bold white]===== End of Safe Transfer Transaction Details =====[/bold white]\n")
-
-# Print instructions to the user
-console.print("\n[bold green]===== Instructions =====[/bold green]")
-console.print("\n[bold white]Instructions for completing the wallet safe transfer:[/bold white]")
-console.print(f"""
-[bold green][1].[/bold green] First review all of the items in [cyan]transfer details[/cyan] (above) to make sure you are transfering to and from the correct keys. You must make sure you have access to the wallet with address: [red]\"{new_wallet_address}\"[/red] specified, that it\'s mnemonic is stored safely, and you have the password available to decrypt the file. Otherwise you may not be able to access the funds after they have been transfered to the new address.
-
-[bold green][2].[/bold green] Second, COPY the above text that is in [yellow]yellow[/yellow] (above). Make sure to copy the entire contents that appear as [yellow]yellow[/yellow] on your screen.
-
-[bold green][3].[/bold green] Next join or enter the Bittensor Discord server by following this link: https://discord.gg/bittensor.
-
-[bold green][4].[/bold green] Once you have joined the server navigate to the ⛑・safe_transfer channel on the discord. Look for the member with a [purple]purple[/purple] username and username [purple]\"safe_transfer\"[/purple]. Click on their [purple]username[/purple] and send them a direct message. Paste the [yellow]yellow[/yellow] details into this direct message. Do NOT leave the Bittensor Discord after you do this.
-
-[bold green][5].[/bold green] From here, this verified user will copy this transaction and pass it to the chain (which is currently firewalled). Note, we cannot edit any of the details of this transaction. The chain itself will verify its legitimacy as a normal transaction. The user is merely shuttling the transaction through to the chain.
-""")
-
-console.print("\n[bold white]Please follow the above [bold green]instructions[/bold green] carefully to complete the safe transfer process.[/bold white]\n")
-
-
