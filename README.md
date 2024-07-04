@@ -42,7 +42,7 @@ Install the requirements for this repository, which simply includes the safe `bi
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
-> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2
+> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2 or extract the old wallet to a new machine before continuing.
 ```
 python -c 'import bittensor as bt; print (bt.__version__)'
 7.0.0 # OK
@@ -90,6 +90,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 >        > From wallet name: default with address: 5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
 >        > To wallet address: 5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P
 
+## This is the password for the old wallet.
 > Enter password to unlock key: 
 
 > ===== Safe Transfer Transaction =====
