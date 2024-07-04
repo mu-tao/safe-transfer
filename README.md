@@ -31,7 +31,7 @@ However, some of the wallets making these `safe_transfer` transactions could be 
 ### Step 1: Clone the Repository
 Git clone this repository on to the device which contains the wallet with the coldkey you suspect is compromised.
 ```bash
-git clone git@github.com:opentensor/safe-transfer.git
+git clone https://github.com/opentensor/safe-transfer.git
 ```
 ---
 
