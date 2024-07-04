@@ -130,7 +130,7 @@ There is a chance that two people submit a transfer signed with the same key wit
 
 3. If both users have only submitted 1 transaction and there is an overlap, we will ask both to provide a cryptographic signature from an acocunt which previously transfered funds to the wallet address in question prior to July 2nd 2024.
 
-4. If only one can provide the above signature this transfer will be used and the other disgarded.
+4. If only one can provide the above signature this transfer will be used and the other discarded.
 
 5. If both users can provide this signature or if none can provide this signature we will take into account both the time when the user entered the Bittensor Discord and how active the user is in the Discord as indication of legitimacy -- in this event we may reach out the community at large for help referencing the user, however there is no guarantee that this process will be conclusive.
 
