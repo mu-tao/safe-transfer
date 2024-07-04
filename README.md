@@ -5,7 +5,7 @@
 
 On July 2nd 2024 the Bittensor network experienced hacks on a number of wallets. In reaction to the abrupt and large scale attack the Opentensor Foundation decided to firewall the chain ('make the chain un-accessible to further transactions') until the attack could be contained. In the following day we discovered that the root cause of the attack came from a compromised 6.12.2 version which was latest on PyPy from May 22nd until May 29th 2024 and which leaked wallet mnemonic details to the attacker when users called some wallet functions. It is possible that a large number of wallets that were actively using the Bittensor CLI at that time were compromised by the attack.
 
-This repository is designed to help those users by creating a `safe_transfer` transaction -- a legitimately signed transfer transaction from their potentially compromised wallet -- which will be hand carried across the chain firewall and allowed to execute on the Bittensor Finney network. However, some of the wallets making these transactions could be compromised themselves, and therefore the attacker could create legitimate transactions which we could not discern. To mitigate this risk OTF will perform a process to filter and arbitrate between malicious transactions and those submitted by their previous owners. For details on this process, please refer to the [Arbitration Process](#arbitration-process) section at the bottom of this document.
+This repository is designed to help those users by creating a `safe_transfer` transaction -- a legitimately signed transfer transaction from their potentially compromised wallet -- which will be hand carried across the chain firewall and allowed to execute on the Bittensor Finney network. However, some of the wallets making these transactions could be compromised themselves, and therefore the attacker could create legitimate transactions which we could not discern. To mitigate this risk OTF will perform a process to filter and arbitrate between malicious transactions and those submitted by their previous owners. For details on this process, please refer to the [Arbitration Process](#step-5-arbitration-process) section at the bottom of this document.
 
 
 # How to create a safe transfer?
@@ -20,7 +20,7 @@ This repository is designed to help those users by creating a `safe_transfer` tr
 2. [Step 2: Install Requirements](#step-2)
 3. [Step 3: Run the script to print the transfer](#step-3)
 4. [Step 4: Message the transfer](#step-4)
-5. [Step 5: Arbitration Process](#step-5)
+5. [Step 5: Arbitration Process](#step-5-arbitration-process)
 
 ---
 ## Step 1: Clone the Repository
