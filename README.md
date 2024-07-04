@@ -15,7 +15,15 @@ This repository is designed to help those users by creating a `safe_transfer` tr
 3. All safe transfers will be collected during a period of X days and will be filtered according to the arbitration process.
 
 ---
-## Step 1
+## Table of Contents
+1. [Step 1: Clone the Repository](#step-1-clone-the-repository)
+2. [Step 2: Install Requirements](#step-2)
+3. [Step 3: Run the Script](#step-3)
+4. [Step 4: Complete the Transfer](#step-4)
+5. [Step 5: Arbitration Process](#step-5)
+
+---
+## Step 1: Clone the Repository
 Git clone this repository on to the device which contains the wallet with the coldkey you suspect is compromised.
 ```bash
 git clone git@github.com:opentensor/safe-transfer.git
