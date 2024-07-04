@@ -1,0 +1,8 @@
+{
+"test":{"coldkey_ss58": "5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew", "extrinsic": {"account_id": "0x3a5250e701ae60bd162ac3aa4cccc1c82b4d0e83e3f3441ad4035eafd2da226f", 
+"signature": {"Sr25519": "0xdcf4a6444806a47fd139788a58f8f07f60ac687fd92a9b4f941ad184a9d4cc01259036a60c7d9f8add6bba91aaa2a2159eb77ddd5e543523ac4013289c927282"}, 
+"call_function": "transfer_allow_death", "call_module": "Balances", "call_args": {"dest": "5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew", "value": 0}, "nonce": 0, 
+"era": "00", "tip": 0, "asset_id": {"tip": 0, "asset_id": null}, "signature_version": 1, "address": "0x3a5250e701ae60bd162ac3aa4cccc1c82b4d0e83e3f3441ad4035eafd2da226f", 
+"call": {"call_function": "transfer_allow_death", "call_module": "Balances", "call_args": {"dest": "5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew", "value": 0}}}, 
+"signature": "2a259bebd4bc53bc456683cd0304fab49bf9609e09570d7cac6370da9f64057a152746d05adf78facd23be6a0e9c0f8a16214c149bf5949ae90fccfa49058486"},
+}
