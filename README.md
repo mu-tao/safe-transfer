@@ -6,18 +6,17 @@
 
 On July 2nd 2024 the Bittensor network experienced hacks on a number of wallets. In response to this abrupt and large scale attack the Opentensor Foundation decided to firewall the chain ("make the chain un-accessible to further transactions") until the attack could be contained. On the following day we (OTF) discovered that the root cause of the attack came from a compromised Bittensor 6.12.2 version, which was latest on PyPy from May 22nd until May 29th 2024 and which leaked the wallet mnemonic details to the attacker when users called some wallet functions. For a detailed report on this incident, see [Bittensor Community Update — July 3, 2024](https://blog.bittensor.com/bittnesor-community-update-july-3-2024-45661b1d542d).
 
-It is possible that a large number of wallets that were actively using the Bittensor CLI at that time were compromised by the attack.
+It is possible that a number of wallets that were actively using the Bittensor CLI at that time were compromised by the attack.
 
-This repository is designed to help those users (compromised by the attack). These users will create a `safe_transfer` transaction--a legitimately signed transfer transaction from their potentially compromised wallet. This `safe_transfer` transcation will then be hand-carried by the OTF across the chain firewall and allowed to execute on the Bittensor Finney network (mainnet). 
+This repository is designed to help those users (compromised by the attack). These users will create a `safe_transfer` transaction--a legitimately signed transfer transaction from their potentially compromised wallet. This `safe_transfer` trasaction will then be hand-carried by the OTF across the chain firewall and allowed to execute on the Bittensor Finney network (mainnet). 
 
-However, some of the wallets making these `safe_transfer` transactions could be compromised themselves, and therefore the attacker could create legitimate transactions which we (OTF) would not be able to discern. To mitigate this risk OTF will run a process to filter and arbitrate between malicious transactions and those submitted by their previous owners. For details on this process, please refer to the [Arbitration Process](#step-5-arbitration-process) section at the bottom of this document.
-
+Some of the wallets making these `safe_transfer` transactions could be compromised themselves, and therefore the attacker could create legitimate transactions which we (OTF) would not be able to discern. To mitigate this risk OTF will run a process to filter and arbitrate between malicious transactions and those submitted by their previous owners. For details on this process, please refer to the [Arbitration Process](#step-5-arbitration-process) section at the bottom of this document.
 
 ## How to create a safe transfer?
 
 1. Users of this script will use the `python safe_transfer.py` function to create a text-based transaction printed on their terminal. 
 2. The users will then message the ligitmately signed transaction to a verified member of the Bittensor Discord with username 'safe_transfer_helper' within the channel 'safe_transfer' channel.
-3. All safe transfers will be collected during a period of X days and will be filtered according to the arbitration process.
+3. All safe transfers will be collected during a period of X days and will be filtered according to the arbitration process explained in [Arbitration Process](#step-5-arbitration-process).
 
 ---
 ### Table of Contents
@@ -104,41 +103,37 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 ### Step 4: Message the transfer
 Follow these instructions to complete the wallet safe transfer:
 
-   4.a. Review all the items in the transfer details -- displayed in yellow when you run the `safe_transfer.py` command -- to ensure you are transferring to and from the correct keys. Make sure you have access to the wallet with the `new_wallet_address` specified; Make sure that you have its mnemonic and that it is stored safely and you have the password available to access it. This is crucial, as you may not be able to access the funds after they have been transferred to the new address if you don't have this information.
+   4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
 
-   4.b. Copy the text displayed in yellow when you run the `safe_transfer.py` command. Ensure you copy the **entire** contents that appear in yellow on your screen.
+   4.b. Copy the text displayed in **yellow** when you run the `safe_transfer.py` command. Ensure you copy the **entire** contents that appear in yellow on your screen.
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
 
-   4.d. Once you have joined the server, navigate to the ⛑・safe_transfer channel. Look for the member in this channel with a purple username "help_safe_transfer". Click on their username and send them a direct message. Paste the yellow details into this direct message. Do not leave the Bittensor Discord after doing this.
+   4.d. Navigate to the `⛑・safe_transfer` channel and find the member who has commented in this channel with the username `help_safe_transfer`. 
+   
+   4.e. Click on their username and send them a direct message with the **yellow** details into this direct message.
 
-   4.e. The verified "help_safe_transfer" user will pass this transaction to the chain. Note that they cannot edit any of the details of this transaction. The chain itself will verify its legitimacy as a normal transaction. The user is merely shuttling the transaction through to the chain.
+   4.e. The verified `help_safe_transfer` user will give you further instructions.
 
 ---
 
 ### Step 5: Arbitration Process
-The "help_safe_transfer" will inform you if the transfer has been submitted on the chain. Once the chain has been unfirewalled you will be able to check to see this yourself. If the transfer has not been submitted, please submit it again normally with safe-transfer.py command with the added `--to_chain` flag. 
 
-However some transactions will need to be thrown out if those that have compromised the attack choose to participate in this process also. We will do our best to discriminate between malicious and legitimate transactions in the following way.
+There is a chance that two people submit a transfer signed with the same key (your key), notably, ***you*** and a ***discord user from the attacking group** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try and filter out this attack vector.
 
-> Note, this is simply our best effort, for some cases it might be impossible to arbitrate between legitimate transactions from previous owners and the attacker.
-> However, we highly suspect that people affected by this attack were common participants of the Bittensor discord and that we will be able to identify them individually.
+1. If one of the users has submitted more than 1 transaction which overlaps with another user, then both of their transactions will be discarded. This will force the attacking group to use many unique discord accounts. 
 
-The Opentensor Foundation (OTF) will perform the following process to filter and arbitrate between malicious transactions and those submitted by their previous owners:
+2. If both users have submitted more than 1 transaction which overlaps (required arbitration) we will remove both transactions.
 
-1. If the transaction is not legitimately signed, the transaction will be removed.
+3. If both users have only submitted 1 transaction and there is an overlap, we will ask both to provide a cryptographic signature from an acocunt which previously transfered funds to the wallet address in question prior to July 2nd 2024.
 
-2. If the transaction is legitimately signed and we have not collected other transactions from the same wallet, we will mark the transaction as safe and send it to the chain after a period of X days -- notably before the chain firewall is lifted.
+4. If only one can provide the above signature this transfer will be used and the other disgarded.
 
-3. If the transaction is signed but there are multiple transactions from the same wallet, we will arbitrate which transaction has precedence.
+5. If both users can provide this signature or if none can provide this signature we will take into account both the time when the user entered the Bittensor Discord and how active the user is in the Discord as indication of legitimacy -- in this event we may reach out the community at large for help referencing the user, however there is no guarantee that this process will be conclusive.
 
-4. If a user participates in more than 1 arbitrated transaction, neither of their transactions will be included.
+6. If step 5 remains inconclusive we will discard both transactions and not pass them through to the chain.
 
-5. If the transaction must be arbitrated, we will choose the transaction from the Discord user who has been active in the Bittensor discord longer.
-
-6. If both users during an arbitration are new to the Bittensor discord from within the week, we will discard both transactions.
-
-This arbitration process is designed to maximize the chances of legitimate transactions being processed while minimizing the risk of processing transactions from compromised wallets.
+This arbitration process is designed to maximize the chances of legitimate transactions being processed while minimizing the risk of processing transactions from compromised wallets. However, there may still be cases with extremely low probability that we cannot determine the legitimacy of the keys.
 
 ```bash
 # The MIT License (MIT)
