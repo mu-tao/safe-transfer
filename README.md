@@ -1,5 +1,5 @@
 
-# Safe Transfer
+# Optional Safe Transfer
 
 ![Safe Transfer UML](assets/SafeTransferUML.jpg)
 ## Introduction
@@ -8,7 +8,7 @@ On July 2nd 2024 the Bittensor network experienced hacks on a number of wallets.
 
 It is possible that a number of wallets that were actively using the Bittensor CLI at that time were compromised by the attack.
 
-This repository is designed to help those users (compromised by the attack). These users will create a `safe_transfer` transaction--a legitimately signed transfer transaction from their potentially compromised wallet. This `safe_transfer` trasaction will then be hand-carried by the OTF across the chain firewall and allowed to execute on the Bittensor Finney network (mainnet). 
+This repository is designed to help those users (compromised by the attack) <it is opt in, you do not need to do this> These users will create a `safe_transfer` transaction--a legitimately signed transfer transaction from their potentially compromised wallet. This `safe_transfer` trasaction will then be hand-carried by the OTF across the chain firewall and allowed to execute on the Bittensor Finney network (mainnet). 
 
 Some of the wallets making these `safe_transfer` transactions could be compromised themselves, and therefore the attacker could create legitimate transactions which we (OTF) would not be able to discern. To mitigate this risk OTF will run a process to filter and arbitrate between malicious transactions and those submitted by their previous owners. For details on this process, please refer to the [Arbitration Process](#step-5-arbitration-process) section at the bottom of this document.
 
@@ -28,19 +28,19 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 
 ---
 ### Step 1: Clone the Repository
-Git clone this repository on to the device which contains the wallet with the coldkey you suspect is compromised.
+Git clone this repository on to the device which contains the wallet with the coldkey you suspect is compromised. We recommend regenerating your wallet on a new non-compromised computer before doing this.
 ```bash
 git clone https://github.com/opentensor/safe-transfer.git
 ```
 ---
 
 ### Step 2
-Install the requirements for this repository, which simply includes the safe `bittensor>=7.0.0` requirement and `rich` for terminal output colouring.
+Install the requirements for this repository, which simply includes two requirements `bittensor>=7.0.0` and `rich` for terminal output colouring.
 ```bash
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
-> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2 or extract the old wallet to a new machine before continuing.
+> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2 before continuing.
 ```
 python -c 'import bittensor as bt; print (bt.__version__)'
 7.0.0 # OK
@@ -49,8 +49,8 @@ python -c 'import bittensor as bt; print (bt.__version__)'
 
 ---
 ### Step 3
-Create a new wallet or use an already non-compromised wallet. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
-Creating a new wallet through the cli.
+Use an already non-compromised wallet, or create a new one. You can do this any way you please, via a [web wallet](https://bittensor.com/wallet), IOS wallet, or through the bittensor cli itself.
+If you wish to use the CLI to create a new wallet, follow these steps.
 ```bash
 # Create the new wallet and list the wallet addresses on the command line
 $ btcli wallet new_coldkey --wallet.name MY_NEW_WALLET_NAME
@@ -67,12 +67,12 @@ $ btcli wallet list
 ---
 
 ### Step 3 Run the script to print the transfer
-Run the `safe_transfer.py` script, passing your `old_wallet` name and the ss58_encoded address of the wallet you want to transfer funds to.
+Run the `safe_transfer.py` script, passing your `--old_wallet` name and the ss58_encoded `--new_wallet_address` of the wallet you want to transfer funds to.
 
 > Note: 
-> 1. This must be run on the machine with the old_wallet who's key is potentially compromised.
-> 2. The safe_transfer script does NOT execute this command it simply creates it and prints it to the screen.
-> 3. Make sure that YOU own the other wallet who's address you pass to the script. For instance, check for this value on the Bittensor wallet extension.
+> 1. You must run this on a machine where the old_wallet exists.
+> 2. The `safe_transfer.py` script does **NOT execute the transfer** it simply creates it and prints it to the screen.
+> 3. Make sure that **YOU** own the other wallet you passed to the script `--new_wallet_address`. For instance, check for this value on the Bittensor wallet extension.
 > Or run `btcli w list` to see the addresses of other wallet's available for the transfer.
 
 ```bash
@@ -82,7 +82,6 @@ python safe_transfer.py --old_wallet=<the name of your old wallet> --new_wallet_
 
 Example Output:
 ```bash
-# For example:
 python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
 > Print Safe Transfer Transaction?
 >        > From wallet name: default with address: 5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
@@ -101,7 +100,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 ---
 
 ### Step 4: Message the transfer
-Follow these instructions to complete the wallet safe transfer:
+Follow these instructions to send the transfer **to the right person** who will pass it through to the chain.
 
    4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
 
@@ -119,7 +118,7 @@ Follow these instructions to complete the wallet safe transfer:
 
 ### Step 5: Arbitration Process
 
-There is a chance that two people submit a transfer signed with the same key (your key), notably, ***you*** and a ***discord user from the attacking group** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try and filter out this attack vector.
+There is a chance that two people submit a transfer signed with the same key within the X days that we provide this script. Notably, those two people would be ***you*** and a ***discord user from the attacking group** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try our best to filter out this attack vector.
 
 1. If one of the users has submitted more than 1 transaction which overlaps with another user, then both of their transactions will be discarded. This will force the attacking group to use many unique discord accounts. 
 
@@ -133,7 +132,7 @@ There is a chance that two people submit a transfer signed with the same key (yo
 
 6. If step 5 remains inconclusive we will discard both transactions and not pass them through to the chain.
 
-This arbitration process is designed to maximize the chances of legitimate transactions being processed while minimizing the risk of processing transactions from compromised wallets. However, there may still be cases with extremely low probability that we cannot determine the legitimacy of the keys.
+This arbitration process is designed to maximize the chances of legitimate transactions being processed while minimizing the risk of processing transactions from compromised wallets. However, there may still be cases with extremely low probability that we cannot determine the legitimacy of the keys. 
 
 ```bash
 # The MIT License (MIT)
