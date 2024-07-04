@@ -41,19 +41,18 @@ Install the requirements for this repository, which simply includes the safe `bi
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
----
-### Step 3
-Create a new wallet or use an already non-compromised walelt. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
-> Note: if you use the CLI ensure you are not using bittensor==6.12.2, you can check that by running `python -c 'import bittensor as bt; print (bt.__version__)'`
-Creating a new wallet through the cli.
-```bash
-# Check that you are not using bittensor==6.12.2
+> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2 or extract the old wallet to a new machine before continuing.
+```
 python -c 'import bittensor as bt; print (bt.__version__)'
-
-# Example
 7.0.0 # OK
 6.12.2 # NOT OK!
+```
 
+---
+### Step 3
+Create a new wallet or use an already non-compromised wallet. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
+Creating a new wallet through the cli.
+```bash
 # Create the new wallet and list the wallet addresses on the command line
 $ btcli wallet new_coldkey --wallet.name MY_NEW_WALLET_NAME
 $ btcli wallet list 
@@ -72,7 +71,7 @@ $ btcli wallet list
 Run the `safe_transfer.py` script, passing your `old_wallet` name and the ss58_encoded address of the wallet you want to transfer funds to.
 
 > Note: 
-> 1. this must be run on the machine with the old_wallet who's key is potentially compromised.
+> 1. This must be run on the machine with the old_wallet who's key is potentially compromised.
 > 2. The safe_transfer script does NOT execute this command it simply creates it and prints it to the screen.
 > 3. Make sure that YOU own the other wallet who's address you pass to the script. For instance, check for this value on the Bittensor wallet extension.
 > Or run `btcli w list` to see the addresses of other wallet's available for the transfer.
@@ -90,6 +89,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 >        > From wallet name: default with address: 5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
 >        > To wallet address: 5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P
 
+## This is the password for the old wallet.
 > Enter password to unlock key: 
 
 > ===== Safe Transfer Transaction =====
