@@ -34,7 +34,7 @@ config = bt.config( parser )
 # First check that we can reach the chain.
 _logger.off()
 try:
-    sub = bt.subtensor()
+    sub = bt.subtensor('test')
 except Exception as e:
     console.print(f"[bold white]\n\tYou, failed to connect to the chain over internet. Please check your internet connection and retry:[/bold white] [red]\n\t{e}[/red]")
     exit()
@@ -110,7 +110,7 @@ try:
             call_function="transfer_allow_death",
             call_params={
                 "dest": new_wallet_address,
-                "value": 0
+                "value": 1_000_000_000
             },
         )
 
@@ -131,17 +131,18 @@ except Exception as e:
 # console.print("-" * 50)
 # console.print("[bold white]===== End of Transfer Details =====[/bold white]\n")
 
-# Print the extrinsic nicely on the screen
+# Write the extrinsic nicely to a file
 output_to_screen = {
     'coldkey_ss58': old_wallet.coldkey.ss58_address,
-    'extrinsic': extrinsic.value,
+    'extrinsic_data': str(extrinsic.data),
 }
-output_to_screen['signature'] = old_wallet.coldkey.sign( output_to_screen['coldkey_ss58']).hex()
+output_to_screen['signature'] = old_wallet.coldkey.sign( str(extrinsic.data) ).hex()
 
-console.print("\n[bold white]===== Safe Transfer Transaction =====[/bold white]")
-console.print("-" * 50)
-console.print(f"[yellow]{json.dumps(output_to_screen)}[/yellow]")
-console.print("-" * 50)
-console.print("[bold white]===== End of Safe Transfer Transaction Details =====[/bold white]\n")
+# Write the output to the file.
+with open('extrinsic_output.json', 'w') as f:
+    f.truncate(0)
+    json.dump(output_to_screen, f, indent=4)
 
-console.print("[bold white]\n\nCopy only the [yellow]yellow transaction details[/yellow] to the clipboard and continue with the steps in the README.md[/bold white]\n")
+import os
+console.print(f"[white]\n\nWe've written the transaction details to the file [bold yellow]\'{os.getcwd()}/extrinsic_output.json\'[/bold yellow] in your local directory.[/white]")
+console.print("[white]Copy `extrinsic_output.json` and continue with the steps in the README.md[/white]\n")

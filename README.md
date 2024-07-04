@@ -14,8 +14,8 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 
 ## How to create a safe transfer?
 
-1. Users of this script will use the `python safe_transfer.py` function to create a text-based transaction printed on their terminal. 
-2. The users will then message the ligitmately signed transaction to a verified member of the Bittensor Discord with username 'safe_transfer_helper' within the channel 'safe_transfer' channel.
+1. Users of this script will use the `python safe_transfer.py` function to create a transaction details file.
+2. The users will then send the file with the ligitmately signed transaction to a verified member of the Bittensor Discord with username 'safe_transfer_helper' within the channel 'safe_transfer' channel.
 3. All safe transfers will be collected during a period of X days and will be filtered according to the arbitration process explained in [Arbitration Process](#step-5-arbitration-process).
 
 ---
@@ -23,8 +23,8 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 1. [Step 1: Clone the Repository and Install](#step-1-clone-the-repository-and-install)
 2. [Step 2: Attain a Secure Wallet Address](#step-2-attain-a-secure-wallet-address)
 3. [Step 3: Regenerate your compromised wallet](#step-3-regenerate-your-compromised-wallet)
-4. [Step 4: Generate the Transaction String](#step-4-generate-the-transaction-string)
-4. [Step 5: Submit the Transaction String](#step-5-submit-the-transaction-string)
+4. [Step 4: Generate the Transaction File](#step-4-generate-the-transaction-string)
+4. [Step 5: Submit the Transaction File](#step-5-submit-the-transaction-string)
 5. [Step 6: Arbitration Process](#step-6-arbitration-process)
 
 ---
@@ -70,7 +70,7 @@ $ btcli wallet regen_coldkey --wallet.name MY_NEW_WALLET_NAME
 
 ---
 
-### Step 4: Run the script to print the transfer
+### Step 4:  Generate the Transaction File
 Run the `safe_transfer.py` script, passing your `--old_wallet` with your `MY_NEW_WALLET_NAME` name and the ss58_encoded `--new_wallet_address` of the wallet you want to transfer funds to from step 2.
 
 > Note: 
@@ -94,27 +94,24 @@ python safe_transfer.py --old_wallet=MY_NEW_WALLET_NAME --new_wallet_address=5DP
 ## This is the password for the old wallet.
 > Enter password to unlock key: 
 
-> ===== Safe Transfer Transaction =====
-> --------------------------------------------------
-> ###TRANSFER INFORMATION PRINTS HERE IN YELLOW###`
-> --------------------------------------------------
-> ===== End of Safe Transfer Transaction Details =====
+> We've written the transaction details to the file '/Users/you_user/path/to/dir/safe-transfer/extrinsic_output.json' in your local directory.
+> Copy this file and continue with the steps in the README.md
 ```
 
 ---
 
-### Step 5: Submit the Transaction String
+### Step 5: Submit the Transaction File
 Follow these instructions to send the transfer **to the right person** who will pass it through to the chain.
 
    4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
 
-   4.b. Copy the text displayed in **yellow** when you run the `safe_transfer.py` command. Ensure you copy the **entire** contents that appear in yellow on your screen.
+   4.b. Find the file which was outputed by the above script when you ran the `safe_transfer.py` command.
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
 
    4.d. Navigate to the `⛑・safe_transfer` channel and find the member who has commented in this channel with the username `help_safe_transfer`. 
    
-   4.e. Click on their username and send them a direct message with the **yellow** details into this direct message.
+   4.e. Click on their username and send them a direct message with the **file** outputed by script.
 
    4.e. The verified `help_safe_transfer` user will give you further instructions.
 

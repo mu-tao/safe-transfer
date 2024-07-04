@@ -28,9 +28,9 @@ except Exception as e:
  
 import bittensor as bt  
 for user, el in extrinsic_details.items(): 
-    keypair = bt.Keypair(el['coldkey_ss58'])
+    keypair = bt.Keypair(el['extrinsic_data'])
     print(
-        user, keypair.verify( el['coldkey_ss58'].encode(), unhexlify( el['signature'].encode()))
+        user, keypair.verify( el['extrinsic_data'].encode(), unhexlify( el['signature'].encode()))
     )
     
     
