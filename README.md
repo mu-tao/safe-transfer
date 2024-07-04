@@ -35,7 +35,7 @@ git clone git@github.com:opentensor/safe-transfer.git
 ### Step 2
 Install the requirements for this repository which simply includes the safe `bittensor>=7.0.0` requirement and `rich` for terminal output colouring.
 ```bash
-cd safe-transfer; python -m pip install -r requirments.txt
+cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
 ---
