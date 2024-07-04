@@ -42,7 +42,7 @@ Install the requirements for this repository, which simply includes the safe `bi
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
-# Check that you are NOT using bittensor==6.12.2
+Check that you are NOT using bittensor==6.12.2
 ```
 python -c 'import bittensor as bt; print (bt.__version__)'
 7.0.0 # OK
