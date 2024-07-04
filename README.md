@@ -20,35 +20,29 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 
 ---
 ### Table of Contents
-1. [Step 1: Clone the Repository](#step-1-clone-the-repository)
-2. [Step 2: Install Requirements](#step-2)
-3. [Step 3: Run the script to print the transfer](#step-3)
-4. [Step 4: Message the transfer](#step-4)
-5. [Step 5: Arbitration Process](#step-5-arbitration-process)
+1. [Step 1: Clone the Repository and Install](#step-1-clone-the-repository)
+2. [Step 2: Attain a Secure Wallet Address](#step-2)
+3. [Step 3: Regenerate your compromised wallet](#step-3)
+4. [Step 4: Generate the Transaction String](#step-4)
+4. [Step 5: Submit the Transaction Sting](#step-5)
+5. [Step 6: Arbitration Process](#step-6-arbitration-process)
 
 ---
 ### Step 1: Clone the Repository
-Git clone this repository on to the device which contains the wallet with the coldkey you suspect is compromised. We recommend regenerating your wallet on a new non-compromised computer before doing this.
+Git clone this repository on to your device from the command line. In the abundance of caution use a machine that was not previously compromised. 
+Next, install the requirements for this repository, which simply includes two requirements `bittensor>=7.0.0` and `rich` for terminal output colouring.
 ```bash
 git clone https://github.com/opentensor/safe-transfer.git
-```
----
-
-### Step 2
-Install the requirements for this repository, which simply includes two requirements `bittensor>=7.0.0` and `rich` for terminal output colouring.
-```bash
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
-> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2 before continuing.
+> Note: IMPORTANT You can check to see if you are running the compromised version of bittensor==6.12.2 before continuing.
 ```
-python -c 'import bittensor as bt; print (bt.__version__)'
-7.0.0 # OK
-6.12.2 # NOT OK!
+python -c "import bittensor as bt; print('\nThis version of bittensor is COMPROMISED.' if bt.__version__ == '6.12.2' else '\nYour version of bittensor is SAFE')"
 ```
 
 ---
-### Step 3
+### Step 2: Attain a Secure Wallet Address
 Use an already non-compromised wallet, or create a new one. You can do this any way you please, via a [web wallet](https://bittensor.com/wallet), IOS wallet, or through the bittensor cli itself.
 If you wish to use the CLI to create a new wallet, follow these steps.
 ```bash
@@ -66,8 +60,18 @@ $ btcli wallet list
 ```
 ---
 
-### Step 3 Run the script to print the transfer
-Run the `safe_transfer.py` script, passing your `--old_wallet` name and the ss58_encoded `--new_wallet_address` of the wallet you want to transfer funds to.
+---
+### Step 3: Regenerate your compromised wallet
+On your safe machine, regenerate your compromised wallet so that you can create the transaction.
+```bash
+# Regnerate my compromised wallet on my safe machine with name MY_NEW_WALLET_NAME
+$ btcli wallet regen_coldkey --wallet.name MY_NEW_WALLET_NAME
+```
+
+---
+
+### Step 4: Run the script to print the transfer
+Run the `safe_transfer.py` script, passing your `--old_wallet` with your `MY_NEW_WALLET_NAME` name and the ss58_encoded `--new_wallet_address` of the wallet you want to transfer funds to from step 2.
 
 > Note: 
 > 1. You must run this on a machine where the old_wallet exists.
@@ -82,7 +86,7 @@ python safe_transfer.py --old_wallet=<the name of your old wallet> --new_wallet_
 
 Example Output:
 ```bash
-python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
+python safe_transfer.py --old_wallet=MY_NEW_WALLET_NAME --new_wallet_address=5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
 > Print Safe Transfer Transaction?
 >        > From wallet name: default with address: 5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
 >        > To wallet address: 5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P
@@ -99,7 +103,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 
 ---
 
-### Step 4: Message the transfer
+### Step 5: Send the Transaction
 Follow these instructions to send the transfer **to the right person** who will pass it through to the chain.
 
    4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
@@ -116,7 +120,7 @@ Follow these instructions to send the transfer **to the right person** who will 
 
 ---
 
-### Step 5: Arbitration Process
+### Step 6: Arbitration Process
 
 There is a chance that two people submit a transfer signed with the same key within the X days that we provide this script. Notably, those two people would be ***you*** and a ***discord user from the attacking group** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try our best to filter out this attack vector.
 
