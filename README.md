@@ -13,10 +13,18 @@ This repository is designed to help those users by creating a `safe_transfer` tr
 1. Users of this script will use the `python safe_transfer.py` function to create a text-based transaction printed on their terminal. 
 2. The users will then message the ligitmately signed transaction to a verified member of the Bittensor discord with username 'safe_transfer_helper' within the channel 'safe_transfer' channel.
 3. All safe transfers will be collected during a period of X days and will be filtered as follows.
+
     3.1 If the transaction is not legitimately signed the transaction will be removed.
-    3.2 If the transaction is signed but there are multiple transactions from the same wallet we will arbitrate which transaction is has precendence based on the 
-    time the discord user has been active in the Bittensor discord. However, if the user participates in more than 1 arbitrated transaction, neither of their transactions will be included.
-    3.3 If both during an arbitration are new to the Bittensor discord from within the week, and are not participating in the multiple arbitrations then we will discard both transactions. 
+
+    3.2 If the transaction is legitmately signed and we have not collected other transactions from the same wallet we will mark the transaction as safe and send it to the chain after a period of X days -- notably before the chain fire wall is lifted.
+
+    3.3 If the transaction is signed but there are multiple transactions from the same wallet we will arbitrate which transaction has precendence.
+
+    3.4 If a user participates in more than 1 arbitrated transaction, neither of their transactions will be included.
+
+    3.5 If the transaction must be arbitrated we will choose the transaction from the discord who has been active in the Bittensor discord longer. 
+
+    3.3 If both users during an arbitration are new to the Bittensor discord from within the week, we will discard both transactions. 
 
 # How to create a safe transfer?
 ---
