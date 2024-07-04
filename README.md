@@ -39,6 +39,29 @@ cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
 ---
+### Step 3
+Create a new wallet or use an already non-compromised walelt. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
+> Note: if you use the CLI ensure you are not using bittensor==6.12.2, you can check that by running `python -c 'import bittensor as bt; print (bt.__version__)'`
+Creating a new wallet through the cli.
+```bash
+# Check that you are not using bittensor==6.12.2
+python -c 'import bittensor as bt; print (bt.__version__)'
+
+# Example
+7.0.0 # OK
+6.12.2 # NOT OK!
+
+# Create the new wallet and list the wallet addresses on the command line
+$ btcli wallet new_coldkey --wallet.name MY_NEW_WALLET_NAME
+$ btcli wallet list 
+
+# Example:
+> Wallets
+> ├── 
+> │   MY_NEW_WALLET_NAME (5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew) # This is the wallet address used in the next steps.
+```
+
+---
 ### Step 3 Run the script to print the transfer
 Run the `safe_transfer.py` script, passing your old_wallet name and the address to the wallet you want to transfer funds to ss58_encoded.
 > Note: 
