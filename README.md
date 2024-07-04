@@ -54,8 +54,11 @@ python -c 'import bittensor as bt; print (bt.__version__)'
 # Create the new wallet and list the wallet addresses on the command line
 $ btcli wallet new_coldkey --wallet.name MY_NEW_WALLET_NAME
 $ btcli wallet list 
+```
 
-# Example:
+Example Output:
+```bash
+$ btcli wallet list 
 > Wallets
 > ├── 
 > │   MY_NEW_WALLET_NAME (5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew) # This is the wallet address used in the next steps.
@@ -72,7 +75,10 @@ Run the `safe_transfer.py` script, passing your old_wallet name and the address 
 ```bash
 # Fill in the < > items with the correct values.
 python safe_transfer.py --old_wallet=<the name of your old wallet> --new_wallet_address=<the ss58_address to the new wallet>
+```
 
+Example Output:
+```bash
 # For example:
 python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew
 > Print Safe Transfer Transaction?
