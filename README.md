@@ -18,8 +18,8 @@ This repository is designed to help those users by creating a `safe_transfer` tr
 ## Table of Contents
 1. [Step 1: Clone the Repository](#step-1-clone-the-repository)
 2. [Step 2: Install Requirements](#step-2)
-3. [Step 3: Run the Script](#step-3)
-4. [Step 4: Complete the Transfer](#step-4)
+3. [Step 3: Run the script to print the transfer](#step-3)
+4. [Step 4: Message the transfer](#step-4)
 5. [Step 5: Arbitration Process](#step-5)
 
 ---
@@ -37,7 +37,7 @@ cd safe-transfer; python -m pip install -r requirments.txt
 ```
 
 ---
-## Step 3
+## Step 3 Run the script to print the transfer
 Run the `safe_transfer.py` script, passing your old_wallet name and the address to the wallet you want to transfer funds to ss58_encoded.
 > Note: 
 > 1. this must be run on the machine with the old_wallet who's key is potentially compromised.
@@ -64,7 +64,7 @@ python safe_transfer.py --old_wallet=default --new_wallet_address=5DPB62QK6XsSbu
 ```
 
 ---
-## Step 4
+## Step 4: Message the transfer
 Follow these instructions to complete the wallet safe transfer:
 
    4.a. Review all the items in the transfer details -- displayed in yellow when you run the safe_transfer.py command -- to ensure you are transferring to and from the correct keys. Make sure you have access to the wallet with the new_wallet_address specified; that you have it's mnemonic and that it is stored safely and you have the password available to access it. This is crucial, as you may not be able to access the funds after they have been transferred to the new address if you don't have this information.
