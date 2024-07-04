@@ -42,7 +42,7 @@ Install the requirements for this repository, which simply includes the safe `bi
 cd safe-transfer; python -m pip install -r requirements.txt
 ```
 
-Check that you are NOT using bittensor==6.12.2
+> Note: IMPORTANT: Check that you are NOT using bittensor==6.12.2
 ```
 python -c 'import bittensor as bt; print (bt.__version__)'
 7.0.0 # OK
@@ -52,16 +52,8 @@ python -c 'import bittensor as bt; print (bt.__version__)'
 ---
 ### Step 3
 Create a new wallet or use an already non-compromised wallet. You can do this any way you please, via a web wallet, or through the bittensor cli itself.
-> Note: if you use the CLI ensure you are not using bittensor==6.12.2, you can check that by running `python -c 'import bittensor as bt; print (bt.__version__)'`
 Creating a new wallet through the cli.
 ```bash
-# Check that you are not using bittensor==6.12.2
-python -c 'import bittensor as bt; print (bt.__version__)'
-
-# Example
-7.0.0 # OK
-6.12.2 # NOT OK!
-
 # Create the new wallet and list the wallet addresses on the command line
 $ btcli wallet new_coldkey --wallet.name MY_NEW_WALLET_NAME
 $ btcli wallet list 
