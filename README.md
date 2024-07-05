@@ -2,6 +2,9 @@
 # Optional Safe Transfer
 
 ![Safe Transfer UML](assets/SafeTransferUML.jpg)
+
+> **NOTE: Only perform these steps if you have specifically used bittensor==6.12.2 and installed it from pip. If you used a wallet browser extension or wallet application such as the Bittensor Wallet (for Chrome or iOS), SafeWallet, Talisman, Polkadot Vault, Tensor Wallet, Nova Wallet, polkadot.js, or websites that utilize polkadot.js such as Taostats.io for staking unstaking, and or hold you TAO on exchanges, then you SAFE and do not need to follow these instructions.**
+
 ## Introduction
 
 On July 2nd 2024 the Bittensor network experienced hacks on a number of wallets. In response to this abrupt and large scale attack the Opentensor Foundation decided to firewall the chain ("make the chain un-accessible to further transactions") until the attack could be contained. On the following day we (OTF) discovered that the root cause of the attack came from a compromised Bittensor 6.12.2 version, which was latest on PyPy from May 22nd until May 29th 2024 and which leaked the wallet mnemonic details to the attacker when users called some wallet functions. For a detailed report on this incident, see [Bittensor Community Update — July 3, 2024](https://blog.bittensor.com/bittnesor-community-update-july-3-2024-45661b1d542d).
