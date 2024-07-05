@@ -90,7 +90,7 @@ if not old_wallet.coldkey_file.is_readable():
 #     exit()
     
 # Print wallet information
-console.print("\n[bold white]Print Safe Transfer Transaction?[/bold white]")
+console.print("\n[bold white]Create Transfer Details?[/bold white]")
 console.print(f"  [bold white]\t> From wallet name:[/bold white] [blue]{old_wallet_name}[/blue] with [white]address: [blue]{old_wallet.coldkeypub.ss58_address}[/blue][/white]")
 console.print(f"  [bold white]\t> To wallet address: [red]{new_wallet_address}\n[/red][/bold white]")
 # console.print(f"[bold white]\n> NOTE: this only CREATES the transaction and [yellow]prints[/yellow] it to the screen. It does NOT send the transaction to the chain.[/bold white]")
@@ -106,10 +106,15 @@ old_wallet.coldkey
 
 # Create the swap command.
 try:
+        # call = sub.substrate.compose_call(
+        #     call_module="SubtensorModule",
+        #     call_function="unstake_all_and_transfer_to_new_coldkey",
+        #     call_params={"new_coldkey": new_wallet_address}
+        # )
         call = sub.substrate.compose_call(
-            call_module="SubtensorModule",
-            call_function="unstake_all_and_transfer_to_new_coldkey",
-            call_params={"new_coldkey": new_wallet_address}
+            call_module="Balances",
+            call_function="transfer_allow_death",
+            call_params={"dest": new_wallet_address, "value": 1_000_000}
         )
         extrinsic = sub.substrate.create_signed_extrinsic(
             call = call, 
@@ -135,12 +140,24 @@ output_to_screen = {
 }
 output_to_screen['signature'] = old_wallet.coldkey.sign( str(extrinsic.data) ).hex()
 
+# Create the filename using the first and last 5 letters of the extrinsic data string
+extrinsic_data_str = str(extrinsic.data)
+filename = f"my_transfer_{extrinsic_data_str[:5]}_{extrinsic_data_str[-5:]}.json"
+
 # Write the output to the file.
-with open('extrinsic_output.json', 'w') as f:
+with open(filename, 'w') as f:
     f.truncate(0)
     json.dump(output_to_screen, f, indent=4)
+    
+import json
+import bittensor as bt
+from binascii import unhexlify
+with open(filename, 'r') as file:
+    transaction_data = json.loads(file.read())
+
+keypair = bt.Keypair(transaction_data['coldkey_ss58'])
+print( 'is_valid', keypair.verify(transaction_data['extrinsic_data'], unhexlify(transaction_data['signature'].encode())) )
 
 import os
-console.print(f"[white]\n\nWe've written the transaction details to the file [bold yellow]\'{os.getcwd()}/extrinsic_output.json\'[/bold yellow] in your local directory.[/white]")
-console.print("[white]Optional: you can verify this file by running `python verify.py` in your terminal.[/white]\n")
-console.print("[white]Copy `extrinsic_output.json` and continue with the steps in the README.md[/white]\n")
+console.print(f"[white]\n\nWe've written the transaction details to the file [bold yellow]\'{os.getcwd()}/{filename}\'[/bold yellow] in your local directory.[/white]")
+console.print(f"[white]Find [bold yellow]`{filename}`[/bold yellow], you will need to send it as an attachment in the following steps from the README.md[/white]\n")
