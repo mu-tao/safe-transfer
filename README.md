@@ -36,7 +36,7 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 
 ---
 ### Step 1: Clone the Repository and Install
-Git clone this repository on to your device from the command line. In the abundance of caution use a machine that was not previously compromised. 
+Git clone this repository on to your device from the command line. In the abundance of caution use a machine that was not previously compromised.
 Next, install the requirements for this repository, which simply includes two requirements `bittensor>=7.0.0` and `rich` for terminal output colouring.
 ```bash
 git clone https://github.com/opentensor/safe-transfer.git
@@ -50,19 +50,19 @@ python -c "import bittensor as bt; print('\nThis version of bittensor is COMPROM
 
 ---
 ### Step 2: Attain a Secure Wallet Address
-Use an already non-compromised wallet, or create a new one. You can do this any way you please, via a [web wallet](https://bittensor.com/wallet), IOS wallet, or through the bittensor cli itself.
+Use an already non-compromised wallet, or create a new one. You can do this any way you please, via a [web wallet](https://bittensor.com/wallet), iOS wallet, or through the bittensor cli (btcli) itself.
 If you wish to use the CLI to create a new wallet, follow these steps.
 ```bash
 # Create the new wallet and list the wallet addresses on the command line
 $ btcli wallet new_coldkey --wallet.name MY_NEW_WALLET_NAME
-$ btcli wallet list 
+$ btcli wallet list
 ```
 
 Example Output:
 ```bash
-$ btcli wallet list 
+$ btcli wallet list
 > Wallets
-> ├── 
+> ├──
 > │   MY_NEW_WALLET_NAME (5DPB62QK6XsSbuFd9g4QAzqq9P5Pzi32P2wBSRS4jdJGLcew) # This is the wallet address used in the next steps.
 ```
 ---
@@ -78,7 +78,7 @@ $ btcli wallet regen_coldkey --wallet.name MY_NEW_WALLET_NAME
 ---
 
 ### Step 4:  Generate the Transaction File
-Run the `safe_transfer.py` script, passing your `--old_wallet` with your `MY_NEW_WALLET_NAME` name and the ss58_encoded `--new_wallet_address` of the wallet you want to transfer funds to from step 2.
+Run the `safe_transfer.py` script, passing your `--old_wallet` with your `MY_NEW_WALLET_NAME` name and the ss58\_encoded `--new_wallet_address` of the wallet you want to transfer funds to from step 2.
 
 > Note: 
 > 1. You must run this on a machine where the old_wallet exists.
@@ -99,7 +99,7 @@ python safe_transfer.py --old_wallet=MY_NEW_WALLET_NAME --new_wallet_address=5DP
 >        > To wallet address: 5GhNeygPMJWZ8Z81LeSEXLCXq4Gmtwby7YCHkT1G6nydJU2P
 
 ## This is the password for the old wallet.
-> Enter password to unlock key: 
+> Enter password to unlock key:
 
 > We've written the transaction details to the file '/Users/you_user/path/to/dir/safe-transfer/my_transfer_XXXXXXXX.json' in your local directory.
 > Find `my_transfer_XXXXXXXX.json`, you will need to send it as an attachment in the following steps from the README.md
@@ -116,9 +116,9 @@ Follow these instructions to send the transfer **to the right person** who will 
    > It will be in the same directory that you ran this command from.
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
-   
+
    4.e. Find the **@bridge_transaction_bot** user name linked in the latest announcement.
-   
+
    4.f. Open a private DM with the Bot by clicking the Profile Picture > Send Message.
 
    4.g. Ensure that your discord permissions are permissive enought to talk with users that are not your friends.
@@ -135,7 +135,7 @@ Follow these instructions to send the transfer **to the right person** who will 
 
 There is a chance that two people submit a transfer signed with the same key within the X days that we provide this script. Notably, those two people would be ***you*** and a ***discord user from the attacking group*** whom have compromised your keys. This is highly unlikely, however we will perform the following steps to try our best to filter out this attack vector.
 
-1. If one of the users has submitted more than 1 transaction which overlaps with another user, then both of their transactions will be discarded. This will force the attacking group to use many unique discord accounts. 
+1. If one of the users has submitted more than 1 transaction which overlaps with another user, then both of their transactions will be discarded. This will force the attacking group to use many unique discord accounts.
 
 2. If both users have submitted more than 1 transaction which overlaps (required arbitration) we will remove both transactions.
 
@@ -147,7 +147,7 @@ There is a chance that two people submit a transfer signed with the same key wit
 
 6. If step 5 remains inconclusive we will discard both transactions and not pass them through to the chain.
 
-This arbitration process is designed to maximize the chances of legitimate transactions being processed while minimizing the risk of processing transactions from compromised wallets. However, there may still be cases with extremely low probability that we cannot determine the legitimacy of the keys. 
+This arbitration process is designed to maximize the chances of legitimate transactions being processed while minimizing the risk of processing transactions from compromised wallets. However, there may still be cases with extremely low probability that we cannot determine the legitimacy of the keys.
 
 ```bash
 # The MIT License (MIT)
