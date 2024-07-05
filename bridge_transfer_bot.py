@@ -5,6 +5,8 @@ from discord.ext import commands
 import logging
 from binascii import unhexlify
 import bittensor as bt
+from tabulate import tabulate
+
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -34,7 +36,7 @@ def verify_transaction(transaction_data):
         return True, None
     except Exception as e:
         return False, f'Error during verification: {e}'
-    
+
     
 async def handle_help(message):
     help_message = (
@@ -75,16 +77,20 @@ async def handle_list(message):
         return
     else:
         user_transactions = database[user_discriminator]
-        if isinstance(user_transactions, list):
-            table_header = "| Coldkey SS58                                     | Transfer Hash |\n|--------------------------------------------------|---------------|\n"
-            extrinsic_data_list = [f"| {data['coldkey_ss58']:<44} | {data['hash'][:5]}...{data['hash'][-5:]} |" for data in user_transactions]
-            pretty_extrinsic_data = '\n'.join(extrinsic_data_list)
-            await message.channel.send(f'Your extrinsic_data:\n```markdown\n{table_header}{pretty_extrinsic_data}\n```')
-            logger.info('Extrinsic data shown.')
-        else:
-            await message.channel.send('Error: Invalid data format for your transactions.')
-            logger.error('Invalid data format for user transactions.')
-        
+        if not user_transactions:
+            await message.channel.send('No transactions found.')
+            return
+        # Prepare data for tabulate
+        headers = ["From", "To", "Hash"]
+        rows = [
+            [data['coldkey_ss58'], data['new_wallet_address']]
+            for data in user_transactions
+        ]
+
+        # Generate table using tabulate
+        table = tabulate(rows, headers=headers, tablefmt="discord")
+        await message.channel.send(f'Your transfers:\n```markdown\n{table}\n```')
+                
 async def handle_transaction_file(message):
     
     # Get user metadata.
@@ -157,6 +163,22 @@ async def handle_transaction_file(message):
         logger.info(f'New transaction: {extrinsic_details}')
         
     # Print the new table.
+    help_message = (
+        "# Next Steps\n"
+        "\n\n"
+        " > We have recieved your transfer which is now stored in a database. \n"
+        " > This bot will wait X days to collect as many transactions as we can before continuing.\n"
+        " > We will notify you when your transfer has been tunneled through to the chain.\n"
+        " > If your transfer **is** successful we will notify you here.\n"
+        " > If your transfer **is not** successful we will notify you here.\n"
+        " > If we require an arbitration for the transaction we will notify you here.\n"
+        "\n\n"
+        " > If you have any questions or feedback about this bot please reach out to us on the Bittensor discord at https://discord.gg/bittensor general channel.\n"
+        "\n\n"
+        "2. Use the **/list** command to see all your pending transactions per coldkey.\n"
+        "\n\n"
+    )
+    await message.channel.send(help_message)
     await handle_list(message)
 
 # Handle incoming messages

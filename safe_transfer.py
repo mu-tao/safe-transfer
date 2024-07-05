@@ -138,6 +138,7 @@ import hashlib
 # Write the extrinsic nicely to a file
 output_to_screen = {
     'coldkey_ss58': old_wallet.coldkey.ss58_address,
+    'new_wallet_address': new_wallet_address,
     'extrinsic_data': str(extrinsic.data),
 }
 output_to_screen['signature'] = old_wallet.coldkey.sign( str(extrinsic.data) ).hex()
