@@ -133,16 +133,19 @@ except Exception as e:
 # console.print("-" * 50)
 # console.print("[bold white]===== End of Transfer Details =====[/bold white]\n")
 
+import hashlib
+
 # Write the extrinsic nicely to a file
 output_to_screen = {
     'coldkey_ss58': old_wallet.coldkey.ss58_address,
     'extrinsic_data': str(extrinsic.data),
 }
 output_to_screen['signature'] = old_wallet.coldkey.sign( str(extrinsic.data) ).hex()
-
-# Create the filename using the first and last 5 letters of the extrinsic data string
+output_to_screen['hash'] = hashlib.sha256(str(extrinsic.data).encode()).hexdigest()
+# Create the filename using the first and last 5 letters of the hash of the extrinsic data string
 extrinsic_data_str = str(extrinsic.data)
-filename = f"my_transfer_{extrinsic_data_str[:5]}_{extrinsic_data_str[-5:]}.json"
+extrinsic_data_hash = hashlib.sha256(extrinsic_data_str.encode()).hexdigest()
+filename = f"my_transfer_{extrinsic_data_hash[:5]}_{extrinsic_data_hash[-5:]}.json"
 
 # Write the output to the file.
 with open(filename, 'w') as f:
