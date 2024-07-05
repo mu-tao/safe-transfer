@@ -29,12 +29,13 @@ parser = argparse.ArgumentParser('safe transfer command')
 parser.add_argument('--old_wallet', type=str, help='The name of the wallet which you want to transfer from.', default=None)
 parser.add_argument('--new_wallet_address', type=str, help='The addres of the wallet you want to transfer funds to.', default=None)
 bt.wallet.add_args( parser )
+bt.subtensor.add_args( parser )
 config = bt.config( parser )
 
 # First check that we can reach the chain.
 _logger.off()
 try:
-    sub = bt.subtensor(network='finney')
+    sub = bt.subtensor(config=config.subtensor.network)
 except Exception as e:
     console.print(f"[bold white]\n\tYou, failed to connect to the chain over internet. Please check your internet connection and retry:[/bold white] [red]\n\t{e}[/red]")
     exit()
@@ -115,7 +116,7 @@ try:
             keypair = old_wallet.coldkey
         )
 except Exception as e:
-    console.print(f"[bold red]An error occured while creating the transfer transaction: {e}[/bold red]")
+    console.print(f"[bold red]An error occured while creating the transfer transaction: [white]{e}[/white][/bold red]")
     console.print(f"[bold red]Please reach out to moderators in the Bittensor discord with your error.[/bold red]")
     exit()
 
@@ -141,4 +142,5 @@ with open('extrinsic_output.json', 'w') as f:
 
 import os
 console.print(f"[white]\n\nWe've written the transaction details to the file [bold yellow]\'{os.getcwd()}/extrinsic_output.json\'[/bold yellow] in your local directory.[/white]")
+console.print("[white]Optional: you can verify this file by running `python verify.py` in your terminal.[/white]\n")
 console.print("[white]Copy `extrinsic_output.json` and continue with the steps in the README.md[/white]\n")
