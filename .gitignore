@@ -1,0 +1,16 @@
+database.json
+extrinsic_output.json
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.env
+*.venv
+.env
+.venv
+env/
+ENV/
+env.bak/
+venv.bak/
