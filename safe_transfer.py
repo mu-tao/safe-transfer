@@ -107,7 +107,7 @@ old_wallet.coldkey
 # Create the swap command.
 try:
         call = sub.substrate.compose_call(
-            call_module="Balances",
+            call_module="SubtensorModule",
             call_function="unstake_all_and_transfer_to_new_coldkey",
             call_params={"new_coldkey": new_wallet_address}
         )
