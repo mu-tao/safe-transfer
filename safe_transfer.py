@@ -107,13 +107,9 @@ old_wallet.coldkey
 try:
         call = sub.substrate.compose_call(
             call_module="Balances",
-            call_function="transfer_allow_death",
-            call_params={
-                "dest": new_wallet_address,
-                "value": 1_000_000_000
-            },
+            call_function="unstake_all_and_transfer_to_new_coldkey",
+            call_params={"new_coldkey": new_wallet_address}
         )
-
         extrinsic = sub.substrate.create_signed_extrinsic(
             call = call, 
             keypair = old_wallet.coldkey
