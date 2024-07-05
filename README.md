@@ -15,7 +15,8 @@ Some of the wallets making these `safe_transfer` transactions could be compromis
 ## How to create a safe transfer?
 
 1. Users of this script will use the `python safe_transfer.py` function to create a transaction details file.
-2. The users will then send the file with the ligitmately signed transaction to a verified member of the Bittensor Discord with username 'safe_transfer_helper' within the channel 'safe_transfer' channel.
+2. The users will then send the file with the ligitmately signed transaction to the **@bridge_transaction_bot** in the Bittensor Discord. 
+> IMPORTANT: Make sure this is the correct user which will be linked through a verified annoucement in the annoucement channel.
 3. All safe transfers will be collected during a period of X days and will be filtered according to the arbitration process explained in [Arbitration Process](#step-5-arbitration-process).
 
 ---
@@ -109,18 +110,18 @@ Follow these instructions to send the transfer **to the right person** who will 
    > It will be in the same directory that you ran this command from.
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
-
-   4.d. Navigate to the `bridge_transfer` channel in the Bittensor discord and find the message from Const that says "Message this bot with your transaction details file: @bridge_transaction_bot" 
    
-   4.e. Click on **@bridge_transaction_bot** and open a private DM with the Bot by clicking the Profile Picture > Send Message.
+   4.e. Find the **@bridge_transaction_bot** user name linked in the latest annoucement.
+   
+   4.f. Open a private DM with the Bot by clicking the Profile Picture > Send Message.
 
-   4.f. Ensure that your discord permissions are permissive enought to talk with users that are not your friends.
+   4.g. Ensure that your discord permissions are permissive enought to talk with users that are not your friends.
         > Go to User Settings > Privacy & Safety on your Discord.
         > Ensure that "Allow direct messages from server members" is enabled.
 
-   4.f. Type "/help" into the direct message channel with the Bot.
+   4.h. Type "/help" into the direct message channel with the Bot to get more information.
 
-   4.g. Upload the `my_transfer_XXXXXXXX.json` file your previously generated when running `safe_transfer.py`
+   4.i. Upload the `my_transfer_XXXXXXXX.json` file you previously generated when running `safe_transfer.py`
 
 ---
 

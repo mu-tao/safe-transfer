@@ -90,7 +90,7 @@ if not old_wallet.coldkey_file.is_readable():
 #     exit()
     
 # Print wallet information
-console.print("\n[bold white]Create Transfer Details?[/bold white]")
+console.print("\n[bold white]Transfer Details[/bold white]")
 console.print(f"  [bold white]\t> Using wallet name:[/bold white] [blue]{old_wallet_name}[/blue]")
 console.print(f"  [bold white]\t> From:[/bold white] [blue]{old_wallet.coldkeypub.ss58_address}[/blue] [bold white] --> To[/bold white] : [red]{new_wallet_address}\n[/red]")
 # console.print(f"[bold white]\n> NOTE: this only CREATES the transaction and [yellow]prints[/yellow] it to the screen. It does NOT send the transaction to the chain.[/bold white]")
@@ -164,4 +164,5 @@ print( 'is_valid', keypair.verify(transaction_data['extrinsic_data'], unhexlify(
 
 import os
 console.print(f"[white]\n\nWe've written the transaction details to the file [bold yellow]\'{os.getcwd()}/{filename}\'[/bold yellow] in your local directory.[/white]")
-console.print(f"[white]Find [bold yellow]`{filename}`[/bold yellow], you will need to send it as an attachment in the following steps from the README.md[/white]\n")
+console.print(f"[white]Find [bold yellow]`{filename}`[/bold yellow] attach this file as a direct message with the **@bridge_transaction_bot** found in the Bittensor discord annoucement. [/white]\n")
+console.print(f"[white]See the README.md Step 4 instructions for more details.[/white]\n")
