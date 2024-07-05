@@ -41,6 +41,9 @@ async def handle_message(message):
         user_name = str(message.author)
         attachment = message.attachments[0]
         
+        # Ensure the transactions directory exists
+        os.makedirs('transactions', exist_ok=True)
+        
         # Download the file
         file_path = f'transactions/{user_name}.json'
         await attachment.save(file_path)

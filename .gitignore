@@ -1,6 +1,7 @@
 database.json
 extrinsic_output.json
 venv/
+transactions/
 __pycache__/
 *.pyc
 *.pyo
