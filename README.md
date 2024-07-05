@@ -80,8 +80,8 @@ $ btcli wallet regen_coldkey --wallet.name MY_NEW_WALLET_NAME
 ### Step 4:  Generate the Transaction File
 Run the `safe_transfer.py` script, passing your `--old_wallet` with your `MY_NEW_WALLET_NAME` name and the ss58\_encoded `--new_wallet_address` of the wallet you want to transfer funds to from step 2.
 
-> Note: 
-> 1. You must run this on a machine where the old_wallet exists.
+> Note:
+> 1. You must run this on a machine where the old\_wallet exists.
 > 2. The `safe_transfer.py` script does **NOT execute the transfer** it simply creates it and prints it to the screen.
 > 3. Make sure that **YOU** own the other wallet you passed to the script `--new_wallet_address`. For instance, check for this value on the Bittensor wallet extension.
 > Or run `btcli w list` to see the addresses of other wallet's available for the transfer.
