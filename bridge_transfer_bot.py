@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 # Create a dictionary to act as a simple persistent database
 database = {}
+arbitration = {}
 
 # Load the database from a file if it exists
 def load_database():
@@ -26,6 +27,18 @@ def load_database():
 def save_database():
     with open('database.json', 'w') as db_file:
         json.dump(database, db_file, indent=4)
+        
+# Load the database from a file if it exists
+def load_arbitration():
+    if os.path.exists('arbitration.json'):
+        with open('arbitration.json', 'r') as db_file:
+            return json.load(db_file)
+    return {}
+
+# Save the database to a file
+def save_arbitration():
+    with open('arbitration.json', 'w') as db_file:
+        json.dump(arbitration, db_file, indent=4)
 
 # Verify the transaction data
 def verify_transaction(transaction_data):
@@ -145,8 +158,21 @@ async def handle_transaction_file(message):
         if other_user_UID != user_UID:  # Ensure we are not checking the same user
             for other_old_transaction in other_user_transactions:
                 if other_old_transaction['coldkey_ss58'] == new_transaction_data['coldkey_ss58']:
+                    # Add both transactions to the arbitration database
+                    arbitration_key = new_transaction_data['coldkey_ss58']
+                    arbitration.setdefault(arbitration_key, []).append(new_transaction_data)
+                    arbitration[arbitration_key].append(other_old_transaction)
+                    
+                    # Remove the arbitrated transaction from both users' transactions
+                    user_transactions = [t for t in user_transactions if t['coldkey_ss58'] != new_transaction_data['coldkey_ss58']]
+                    other_user_transactions = [t for t in other_user_transactions if t['coldkey_ss58'] != new_transaction_data['coldkey_ss58']]
+                    database[user_UID] = user_transactions
+                    database[other_user_UID] = other_user_transactions
+                    save_database()
+                    save_arbitration()
+                    
                     await message.channel.send('Error: A different user has already submitted a transaction with the same coldkey_ss58 address. We need to arbitrate this transaction.')
-                    logger.warning('Duplicate coldkey_ss58 address found for different users.')
+                    logger.warning('Duplicate coldkey_ss58 address found for different users. Added to arbitration database.')
                     return
             
     # Add the transaction to the user's list of transactions
@@ -205,6 +231,10 @@ async def on_message(message):
 # Load the database
 database = load_database()
 logger.info('Database loaded.')
+
+# Load the arbitration
+arbitration = load_arbitration()
+logger.info('Arbitration loaded.')
 
 # Run the bot with your token
 bot.run(os.getenv('DISCORD_BOT_TOKEN'))
