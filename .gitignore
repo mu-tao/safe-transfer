@@ -1,4 +1,5 @@
 database.json
+arbitration.json
 my_transfer_*.json
 venv/
 transactions/
