@@ -3,7 +3,10 @@
 
 ![Safe Transfer UML](assets/SafeTransferUML.jpg)
 
-> **NOTE: Only perform these steps if you have specifically used bittensor==6.12.2 and installed it from pip. If you used a wallet browser extension or wallet application such as the Bittensor Wallet (for Chrome or iOS), SafeWallet, Talisman, Polkadot Vault, Tensor Wallet, Nova Wallet, polkadot.js, or websites that utilize polkadot.js such as Taostats.io for staking unstaking, and or hold you TAO on exchanges, then you SAFE and do not need to follow these instructions.**
+---
+# **DISCLAIMER**:
+> **You should only perform these steps if you have specifically used bittensor==6.12.2 installed it from pip. If you used a wallet browser extension or wallet application such as the Bittensor Wallet (for Chrome or iOS), SafeWallet, Talisman, Polkadot Vault, Tensor Wallet, Nova Wallet, polkadot.js, or websites that utilize polkadot.js such as Taostats.io for staking unstaking, and or hold you TAO on exchanges, then you SAFE and do not need to follow these instructions.**
+---
 
 ## Introduction
 
