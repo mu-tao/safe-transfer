@@ -105,15 +105,22 @@ Follow these instructions to send the transfer **to the right person** who will 
 
    4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
 
-   4.b. Find the file which was outputed by the above script when you ran the `safe_transfer.py` command.
+   4.b. Find the file `extrinsic_output.json` which was outputed by the above script when you ran the `safe_transfer.py` command.
+   > It will be in the same directory that you ran this command from.
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
 
-   4.d. Navigate to the `⛑・safe_transfer` channel and find the member who has commented in this channel with the username `help_safe_transfer`. 
+   4.d. Navigate to the `bridge_transfer` channel in the Bittensor discord and find the message from Const that says "Message this bot with your transaction details file: @bridge_transaction_bot" 
    
-   4.e. Click on their username and send them a direct message with the **file** outputed by script.
+   4.e. Click on **@bridge_transaction_bot** and open a private DM with the Bot by clicking the Profile Picture > Send Message.
 
-   4.e. The verified `help_safe_transfer` user will give you further instructions.
+   4.f. Ensure that your discord permissions are permissive enought to talk with users that are not your friends.
+        > Go to User Settings > Privacy & Safety on your Discord.
+        > Ensure that "Allow direct messages from server members" is enabled.
+
+   4.f. Type "/help" into the direct message channel with the Bot.
+
+   4.g. Upload the `extrinsic_output.json` file your previously generated when running `safe_transfer.py`
 
 ---
 
