@@ -142,6 +142,13 @@ async def handle_transaction_file(message):
         logger.error(error_message)
         return
     
+    # Check if the transaction is in arbitration
+    arbitration_key = new_transaction_data['coldkey_ss58']
+    if arbitration_key in arbitration:
+        await message.channel.send('Error: This transaction is currently in arbitration with another user.')
+        logger.warning('Transaction is in arbitration with another user.')
+        return
+    
     # Check for duplicate coldkey_ss58 address for the same user and remove it
     did_replace = False
     user_transactions = database.get(user_UID, [])
