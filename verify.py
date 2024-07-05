@@ -19,18 +19,14 @@
 import json
 from binascii import unhexlify
 
-with open('sample.txt', 'r') as file:
-    thing = file.read()
 try:
-    extrinsic_details = json.loads(thing)
+    with open('extrinsic_output.json', 'r') as file:
+        extrinsic_details = json.loads(file.read())
 except Exception as e:
     print(f"[red]Error: Invalid JSON with error: {e}[/red]")
  
 import bittensor as bt  
-for user, el in extrinsic_details.items(): 
-    keypair = bt.Keypair(el['extrinsic_data'])
-    print(
-        user, keypair.verify( el['extrinsic_data'].encode(), unhexlify( el['signature'].encode()))
-    )
+keypair = bt.Keypair( extrinsic_details['coldkey_ss58'] )
+print(keypair.verify( extrinsic_details['extrinsic_data'].encode(), unhexlify( extrinsic_details['signature'].encode())))
     
     

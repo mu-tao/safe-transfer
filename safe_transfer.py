@@ -34,7 +34,7 @@ config = bt.config( parser )
 # First check that we can reach the chain.
 _logger.off()
 try:
-    sub = bt.subtensor('test')
+    sub = bt.subtensor(network='finney')
 except Exception as e:
     console.print(f"[bold white]\n\tYou, failed to connect to the chain over internet. Please check your internet connection and retry:[/bold white] [red]\n\t{e}[/red]")
     exit()
