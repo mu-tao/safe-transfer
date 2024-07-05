@@ -70,13 +70,13 @@ async def handle_help(message):
     logger.info('Help message sent.')
     
 async def handle_list(message):
-    user_discriminator = str(message.author.discriminator)
-    if user_discriminator not in database:
+    user_UID = str(message.author.id)
+    if user_UID not in database:
         await message.channel.send('No transaction data found for your username')
         logger.info('No transaction data found for user.')
         return
     else:
-        user_transactions = database[user_discriminator]
+        user_transactions = database[user_UID]
         if not user_transactions:
             await message.channel.send('No transactions found.')
             return
@@ -89,7 +89,7 @@ async def handle_list(message):
 
         # Generate table using tabulate
         table = tabulate(rows, headers=headers, tablefmt="discord")
-        await message.channel.send(f'Your transfers:\n```markdown\n{table}\n```')
+        await message.channel.send(f'Transfer All:\n```markdown\n{table}\n```')
                 
 async def handle_transaction_file(message):
     
@@ -101,6 +101,7 @@ async def handle_transaction_file(message):
     message_id = str(message.id)
     message_timestamp = str(message.created_at.isoformat())
     attachment = message.attachments[0]
+    user_UID = str(message.author.id)
     
     # Download and load the tmp file.
     os.makedirs('transactions', exist_ok=True)    
@@ -114,7 +115,7 @@ async def handle_transaction_file(message):
     new_transaction_data.update({
         'user_name': user_name,
         'user_id': user_id,
-        'user_discriminator': user_discriminator,
+        'user_UID': user_UID,
         'user_display_name': user_display_name,
         'message_id': message_id,
         'message_timestamp': message_timestamp
@@ -130,7 +131,7 @@ async def handle_transaction_file(message):
     
     # Check for duplicate coldkey_ss58 address for the same user and remove it
     did_replace = False
-    user_transactions = database.get(user_discriminator, [])
+    user_transactions = database.get(user_UID, [])
     user_transactions = []
     for old_transaction in user_transactions:
         if old_transaction['coldkey_ss58'] != new_transaction_data['coldkey_ss58']:
@@ -140,8 +141,8 @@ async def handle_transaction_file(message):
             did_replace = True
         
     # Check for duplicate coldkey_ss58 address for different users
-    for other_user_discriminator, other_user_transactions in database.items():
-        if other_user_discriminator != user_discriminator:  # Ensure we are not checking the same user
+    for other_user_UID, other_user_transactions in database.items():
+        if other_user_UID != user_UID:  # Ensure we are not checking the same user
             for other_old_transaction in other_user_transactions:
                 if other_old_transaction['coldkey_ss58'] == new_transaction_data['coldkey_ss58']:
                     await message.channel.send('Error: A different user has already submitted a transaction with the same coldkey_ss58 address. We need to arbitrate this transaction.')
@@ -150,7 +151,7 @@ async def handle_transaction_file(message):
             
     # Add the transaction to the user's list of transactions
     user_transactions.append(new_transaction_data)
-    database[ user_discriminator ] = user_transactions
+    database[ user_UID ] = user_transactions
     save_database()
     logger.info('Database updated.')
     extrinsic_hash = new_transaction_data['hash']
@@ -159,24 +160,15 @@ async def handle_transaction_file(message):
         await message.channel.send(f'Replaced an old transaction with coldkey: {replaced_transaction["coldkey_ss58"]}')
         logger.info(f'Replaced old transaction: {replaced_transaction}')
     else:
-        await message.channel.send(f'Added transaction: {extrinsic_details}')
+        await message.channel.send(f"Added\n\tFrom: {new_transaction_data['coldkey_ss58']}\n\tTo: {new_transaction_data['new_wallet_address']}")
         logger.info(f'New transaction: {extrinsic_details}')
         
     # Print the new table.
     help_message = (
-        "# Next Steps\n"
-        "\n\n"
-        " > We have recieved your transfer which is now stored in a database. \n"
-        " > This bot will wait X days to collect as many transactions as we can before continuing.\n"
-        " > We will notify you when your transfer has been tunneled through to the chain.\n"
-        " > If your transfer **is** successful we will notify you here.\n"
-        " > If your transfer **is not** successful we will notify you here.\n"
-        " > If we require an arbitration for the transaction we will notify you here.\n"
-        "\n\n"
-        " > If you have any questions or feedback about this bot please reach out to us on the Bittensor discord at https://discord.gg/bittensor general channel.\n"
-        "\n\n"
-        "2. Use the **/list** command to see all your pending transactions per coldkey.\n"
-        "\n\n"
+        "### Next Steps\n"
+        " 1. Wait X days for OTF to collect everyones transactions.\n"
+        " 2. We will notify you if your transfer has been tunneled, failed, or requires arbitration.\n"
+        " 3. If you have any questions, please reach out to @moderators on the Bittensor discord at https://discord.gg/bittensor general channel.\n"
     )
     await message.channel.send(help_message)
     await handle_list(message)

@@ -91,8 +91,8 @@ if not old_wallet.coldkey_file.is_readable():
     
 # Print wallet information
 console.print("\n[bold white]Create Transfer Details?[/bold white]")
-console.print(f"  [bold white]\t> From wallet name:[/bold white] [blue]{old_wallet_name}[/blue] with [white]address: [blue]{old_wallet.coldkeypub.ss58_address}[/blue][/white]")
-console.print(f"  [bold white]\t> To wallet address: [red]{new_wallet_address}\n[/red][/bold white]")
+console.print(f"  [bold white]\t> Using wallet name:[/bold white] [blue]{old_wallet_name}[/blue]")
+console.print(f"  [bold white]\t> From:[/bold white] [blue]{old_wallet.coldkeypub.ss58_address}[/blue] [bold white] --> To[/bold white] : [red]{new_wallet_address}\n[/red]")
 # console.print(f"[bold white]\n> NOTE: this only CREATES the transaction and [yellow]prints[/yellow] it to the screen. It does NOT send the transaction to the chain.[/bold white]")
 # console.print(f"[bold white]\n> [yellow]WARNING[/yellow]: Make sure that the address: [red]{new_wallet_address}[/red] corresponds correctly to the wallet where you want to transfer the funds. If this is not the correct wallet abort with ctrl-c.")
 # if not Confirm.ask(f"[bold white]\nWould you like to sign the above transaction with your [blue]\"{old_wallet_name}\"[/blue] wallet and CONTINUE?[/bold white]\n"):
@@ -146,7 +146,7 @@ output_to_screen['hash'] = hashlib.sha256(str(extrinsic.data).encode()).hexdiges
 # Create the filename using the first and last 5 letters of the hash of the extrinsic data string
 extrinsic_data_str = str(extrinsic.data)
 extrinsic_data_hash = hashlib.sha256(extrinsic_data_str.encode()).hexdigest()
-filename = f"my_transfer_{extrinsic_data_hash[:5]}_{extrinsic_data_hash[-5:]}.json"
+filename = f"my_transfer_{old_wallet.coldkey.ss58_address[:10]}.json"
 
 # Write the output to the file.
 with open(filename, 'w') as f:

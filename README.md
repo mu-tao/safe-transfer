@@ -94,8 +94,8 @@ python safe_transfer.py --old_wallet=MY_NEW_WALLET_NAME --new_wallet_address=5DP
 ## This is the password for the old wallet.
 > Enter password to unlock key: 
 
-> We've written the transaction details to the file '/Users/you_user/path/to/dir/safe-transfer/my_transfer_XXXX_XXXX.json' in your local directory.
-> Find `my_transfer_XXXX_XXXX.json`, you will need to send it as an attachment in the following steps from the README.md
+> We've written the transaction details to the file '/Users/you_user/path/to/dir/safe-transfer/my_transfer_XXXXXXXX.json' in your local directory.
+> Find `my_transfer_XXXXXXXX.json`, you will need to send it as an attachment in the following steps from the README.md
 ```
 
 ---
@@ -105,7 +105,7 @@ Follow these instructions to send the transfer **to the right person** who will 
 
    4.a. Review all the items in the transfer details to ensure you are transferring to and from the correct keys. This should be a wallet under your control.
 
-   4.b. Find the file `my_transfer_XXXX_XXXX.json` which was outputed by the above script when you ran the `safe_transfer.py` command.
+   4.b. Find the file `my_transfer_XXXXXXXX.json` which was outputed by the above script when you ran the `safe_transfer.py` command.
    > It will be in the same directory that you ran this command from.
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
@@ -120,7 +120,7 @@ Follow these instructions to send the transfer **to the right person** who will 
 
    4.f. Type "/help" into the direct message channel with the Bot.
 
-   4.g. Upload the `my_transfer_XXXX_XXXX.json` file your previously generated when running `safe_transfer.py`
+   4.g. Upload the `my_transfer_XXXXXXXX.json` file your previously generated when running `safe_transfer.py`
 
 ---
 
