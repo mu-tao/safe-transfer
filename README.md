@@ -14,15 +14,15 @@ On July 2nd 2024 the Bittensor network experienced hacks on a number of wallets.
 
 It is possible that a number of wallets that were actively using the Bittensor CLI at that time were compromised by the attack.
 
-This repository is designed to help those users (compromised by the attack) <it is opt in, you do not need to do this> These users will create a `safe_transfer` transaction--a legitimately signed transfer transaction from their potentially compromised wallet. This `safe_transfer` trasaction will then be hand-carried by the OTF across the chain firewall and allowed to execute on the Bittensor Finney network (mainnet). 
+This repository is designed to help those users (compromised by the attack) <it is opt in, you do not need to do this> These users will create a `safe_transfer` transaction--a legitimately signed transfer transaction from their potentially compromised wallet. This `safe_transfer` transaction will then be hand-carried by the OTF across the chain firewall and allowed to execute on the Bittensor Finney network (mainnet).
 
 Some of the wallets making these `safe_transfer` transactions could be compromised themselves, and therefore the attacker could create legitimate transactions which we (OTF) would not be able to discern. To mitigate this risk OTF will run a process to filter and arbitrate between malicious transactions and those submitted by their previous owners. For details on this process, please refer to the [Arbitration Process](#step-5-arbitration-process) section at the bottom of this document.
 
 ## How to create a safe transfer?
 
 1. Users of this script will use the `python safe_transfer.py` function to create a transaction details file.
-2. The users will then send the file with the ligitmately signed transaction to the **@bridge_transaction_bot** in the Bittensor Discord. 
-> IMPORTANT: Make sure this is the correct user which will be linked through a verified annoucement in the annoucement channel.
+2. The users will then send the file with the legitimately signed transaction to the **@bridge_transaction_bot** in the Bittensor Discord.
+> IMPORTANT: Make sure this is the correct user which will be linked through a verified announcement in the announcement channel.
 3. All safe transfers will be collected during a period of X days and will be filtered according to the arbitration process explained in [Arbitration Process](#step-5-arbitration-process).
 
 ---
@@ -117,7 +117,7 @@ Follow these instructions to send the transfer **to the right person** who will 
 
    4.c. Join or enter the Bittensor Discord server by following this link: [https://discord.gg/bittensor](https://discord.gg/bittensor).
    
-   4.e. Find the **@bridge_transaction_bot** user name linked in the latest annoucement.
+   4.e. Find the **@bridge_transaction_bot** user name linked in the latest announcement.
    
    4.f. Open a private DM with the Bot by clicking the Profile Picture > Send Message.
 
